@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="462.0" prefWidth="622.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ListView fx:id="heroSelect" layoutX="3.0" layoutY="84.0" prefHeight="326.0" prefWidth="485.0" />
+      <Button fx:id="addHero" layoutX="501.0" layoutY="88.0" mnemonicParsing="false" prefHeight="88.0" prefWidth="86.0" text="Add" />
+      <ListView fx:id="enemyList" orientation="HORIZONTAL" prefHeight="88.0" prefWidth="622.0" />
+      <Label fx:id="systemOut" layoutX="14.0" layoutY="424.0" prefHeight="17.0" prefWidth="569.0" />
+      <Button fx:id="sortButton" layoutX="501.0" layoutY="203.0" mnemonicParsing="false" prefHeight="88.0" prefWidth="86.0" text="Sort By&#10;Win-rate" textAlignment="CENTER" />
+      <Button fx:id="resetButton" layoutX="501.0" layoutY="322.0" mnemonicParsing="false" prefHeight="88.0" prefWidth="86.0" text="Reset" />
+   </children>
+</AnchorPane>
