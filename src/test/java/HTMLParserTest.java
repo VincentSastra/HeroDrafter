@@ -17,6 +17,7 @@ import static org.assertj.core.api.Assertions.within;
 public class HTMLParserTest {
 
     public String html1;
+    public String html1S;
 
     @Before
     public void createHTML() {
@@ -33,7 +34,7 @@ public class HTMLParserTest {
                 "</head>\n" +
                 "<!-- The information between the BODY and /BODY tags is displayed.-->\n" +
                 "<body>\n" +
-                "<h1>Enter the main heading, usually the same as the title.</h1>\n" +
+                "<h1 style=\"color:blue;text-align:center\">Enter the main heading, usually the same as the title.</h1>\n" +
                 "<p>Be <b>bold</b> in stating your key points. Put them in a list: </p>\n" +
                 "<ul>\n" +
                 "<li>The first item in your list</li>\n" +
@@ -49,11 +50,42 @@ public class HTMLParserTest {
                 "<p>&#169; Wiley Publishing, 2011</p>\n" +
                 "</body>\n" +
                 "</html>";
+
+        html1S = "<html>\n" +
+                "\n" +
+                "<head>\n" +
+                "<title>Enter a title, displayed at the top of the window.</title>\n" +
+                "</head>\n" +
+                "\n" +
+                "<body>\n" +
+                "<h1 >Enter the main heading, usually the same as the title.</h1>\n" +
+                "<p>Be <b>bold</b> in stating your key points. Put them in a list: </p>\n" +
+                "<ul>\n" +
+                "<li>The first item in your list</li>\n" +
+                "<li>The second item; <i>italicize</i> key words</li>\n" +
+                "</ul>\n" +
+                "<p>Improve your image by including an image. </p>\n" +
+                "<p><img src=\"http://www.mygifs.com/CoverImage.gif\" alt=\"A Great HTML Resource\"></p>\n" +
+                "<p>Add a link to your favorite <a href=\"https://www.dummies.com/\">Web site</a>.\n" +
+                "Break up your page with a horizontal rule or two. </p>\n" +
+                "<hr>\n" +
+                "<p>Finally, link to <a href=\"page2.html\">another page</a> in your own Web site.</p>\n" +
+                "\n" +
+                "<p>&#169; Wiley Publishing, 2011</p>\n" +
+                "</body>\n" +
+                "</html>";
+
     }
 
     @Test
     public void removeScriptsTest() {
         String html = "<script>in script</script>out script";
         assertThat(html.replaceAll("<script(.*)/script>", "")).isEqualTo("out script");
+    }
+
+    @Test
+    public void createDocumentTest() {
+        Document document = new Document(html1);
+        assertThat(document.rawText).isEqualTo(html1S);
     }
 }
