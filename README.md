@@ -1,5 +1,5 @@
 ---
-- __[DotaApp.zip](https://github.com/VincentSastra/HeroDrafter/blob/master/target/DotaApp.zip)__ - Download zip file here
+- __[DotaApp.zip](https://github.com/VincentSastra/HeroDrafter/raw/master/target/DotaApp.zip)__ - Download zip file here
 - Launch by using the launcher.sh
 ---
 
