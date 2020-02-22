@@ -1,5 +1,5 @@
-import Main.HeroList;
 import Main.Drafter;
+import HTMLParser.*;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -10,6 +10,7 @@ import static org.assertj.core.api.Assertions.within;
 
 
 public class DrafterTest {
+
 
     @Test
     public void test1() throws IOException {

@@ -84,7 +84,7 @@ public class HTMLParserTest {
     }
 
     @Test
-    public void createDocumentTest() {
+    public void createDocumentTest() throws InvalidHTMLException {
         Document document = new Document(html1);
         assertThat(document.rawText).isEqualTo(html1S);
     }

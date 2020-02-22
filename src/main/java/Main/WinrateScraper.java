@@ -1,11 +1,16 @@
 package Main;
 
-import org.jsoup.*;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import HTMLParser.Document;
+import HTMLParser.Element.Table;
+import HTMLParser.Element.TableEntry;
+import HTMLParser.HtmlGetter;
+import HTMLParser.InvalidHTMLException;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class WinrateScraper {
@@ -22,14 +27,13 @@ public class WinrateScraper {
 
         Document heroPage = getPage(heroName);
 
-        Elements heroRow = heroPage.select("tr[data-link-to^=/heroes/]");
+        Table winrateTable = heroPage.body.tables.get(3);
 
         HashMap<String, Double> winRateMap = new HashMap<>();
 
-        for(Element row : heroRow) {
-            String name = row.selectFirst(".cell-icon").attr("data-value");
-            Element winRateElement = row.selectFirst("td:has(.bar):has(.segment-win)");
-            Double winRate = 100.0 - Double.parseDouble(winRateElement.attr("data-value"));
+        for(ArrayList<TableEntry> tableRow: winrateTable.getBody()) {
+            String name = tableRow.get(0).getDataValue();
+            Double winRate = 100.0 - Double.parseDouble(tableRow.get(3).getDataValue());
 
             winRateMap.put(name, winRate);
         }
@@ -42,9 +46,10 @@ public class WinrateScraper {
      * @param heroName The hero name to lookup
      * @return the url
      * https://www.dotabuff.com/heroes/<heroName>/counters?date=week
+     * https://www.dotabuff.com/heroes/lina/counters?date=week
      */
-    private static String getURL(String heroName) {
-        return "http://www.dotabuff.com/heroes/" + heroName.toLowerCase().replace(" ", "-") + "/counters?date=week";
+    private static URL getURL(String heroName) throws MalformedURLException {
+        return new URL("https://www.dotabuff.com/heroes/" + heroName.toLowerCase().replace(" ", "-").replace("'", "") + "/counters?date=week");
     }
 
     private static Document getPage(String heroName) throws IOException {
@@ -52,7 +57,7 @@ public class WinrateScraper {
         int maxTries = 10;
         while(true) {
             try {
-                return Jsoup.connect(getURL(heroName)).get();
+                return new Document(getURL(heroName));
             } catch (IOException e) {
                 try {
                     Thread.sleep(100);
@@ -60,6 +65,8 @@ public class WinrateScraper {
 
                 }
                 if (++count == maxTries) throw e;
+            } catch (InvalidHTMLException | URISyntaxException | InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }

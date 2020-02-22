@@ -32,7 +32,7 @@ public class App extends Application {
 
     @FXML
     public ListView<String> heroSelect;
-    public HeroList heroList = HeroList.getInstance();
+    public DotaHeroList heroList = DotaHeroList.getInstance();
 
     @FXML
     public ListView<String> enemyList;
