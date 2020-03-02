@@ -1,5 +1,4 @@
 import Main.Drafter;
-import HTMLParser.*;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -19,21 +18,21 @@ public class DrafterTest {
 
         drafter.addEnemy("Arc Warden");
 
-        HashMap<String, Double> rmap = drafter.getMatchups();
+        HashMap<String, Double> rmap = drafter.getAllMatchups();
         double linaWR = rmap.get("Lina");
 
         drafter.addEnemy("Chen");
         drafter.removeEnemy("Chen");
 
-        assertThat(linaWR).isEqualTo(drafter.getMatchups().get("Lina"), within(0.01));
-        HashMap<String, Double> matchups = drafter.getMatchups();
-        assertThat(drafter.getMatchups().keySet()).doesNotContain("Arc Warden");
-        assertThat(drafter.getMatchups().keySet()).contains("Chen");
+        assertThat(linaWR).isEqualTo(drafter.getAllMatchups().get("Lina"), within(0.01));
+        HashMap<String, Double> matchups = drafter.getAllMatchups();
+        assertThat(drafter.getAllMatchups().keySet()).doesNotContain("Arc Warden");
+        assertThat(drafter.getAllMatchups().keySet()).contains("Chen");
 
         drafter.removeEnemy("Arc Warden");
         drafter.addEnemy("Arc Warden");
 
-        assertThat(linaWR).isEqualTo(drafter.getMatchups().get("Lina"), within(0.1));
+        assertThat(linaWR).isEqualTo(drafter.getAllMatchups().get("Lina"), within(0.1));
 
     }
 

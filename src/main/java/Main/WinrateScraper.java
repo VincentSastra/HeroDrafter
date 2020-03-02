@@ -43,6 +43,31 @@ public class WinrateScraper {
     }
 
     /**
+     *
+     * @param heroName
+     * @return a HashMap of every other hero and its advantage against @param heroName
+     * @throws IOException if connection goes wrong
+     */
+    public static HashMap<String, Double> getAdvantage(String heroName) throws IOException {
+
+        Document heroPage = getPage(heroName);
+
+        Table winrateTable = heroPage.body.tables.get(3);
+
+        HashMap<String, Double> winRateMap = new HashMap<>();
+
+        for(ArrayList<TableEntry> tableRow: winrateTable.getBody()) {
+            String name = tableRow.get(0).getDataValue();
+            Double winRate = 0 - Double.parseDouble(tableRow.get(2).getDataValue());
+
+            winRateMap.put(name, winRate);
+        }
+
+        return winRateMap;
+
+    }
+
+    /**
      * @param heroName The hero name to lookup
      * @return the url
      * https://www.dotabuff.com/heroes/<heroName>/counters?date=week
@@ -70,5 +95,6 @@ public class WinrateScraper {
             }
         }
     }
+
 
 }

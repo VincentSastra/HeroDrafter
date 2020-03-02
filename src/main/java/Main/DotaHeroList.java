@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+/**
+ *  A list that stores all the hero names and image.
+ *
+ */
 public class DotaHeroList {
 
     private static final DotaHeroList INSTANCE = new DotaHeroList();
